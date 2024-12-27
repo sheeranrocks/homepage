@@ -17,7 +17,8 @@
             flex-direction: column;
             min-height: 100vh;
             padding-top: 50px;
-            position: relative; /* Ensure that the background is positioned correctly */
+            position: relative;
+            overflow: hidden; /* Prevent scroll from animations */
         }
 
         /* Background Decoration: two circular layers */
@@ -29,6 +30,7 @@
             transform: translate(-50%, -50%);
             border-radius: 100%;
             z-index: -1; /* Ensure these are in the background */
+            animation: randomBreathing 6s infinite;
         }
 
         /* Outer larger circle with darker blue */
@@ -36,13 +38,24 @@
             width: 1500px; /* Larger circle */
             height: 1500px;
             background: radial-gradient(circle, #468fe9 50%, transparent 50%);
+            animation-delay: 0s;
         }
 
         /* Inner smaller circle with slightly lighter blue */
         body::after {
-            width: 1035px; /* Smaller circle */
-            height: 1035px;
+            width: 1060px; /* Smaller circle */
+            height: 1060px;
             background: radial-gradient(circle, #0e64d5 40%, transparent 40%);
+            animation-delay: 2s; /* Offset the animation for randomness */
+        }
+
+        @keyframes randomBreathing {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
         }
 
         header {
@@ -60,19 +73,30 @@
             color: #414141;
         }
 
-        /* Adjusted color gradient for hυsh */
         header p:nth-of-type(2) {
             color: #a8a8a8; /* A medium gray color */
         }
 
         /* Image styling */
-        img {
+        .profile-link {
+            display: inline-block;
+            border-radius: 50%;
+            margin-top: -10px; /* Move profile image up by 10px */
+        }
+
+        .profile-pic {
+            border-radius: 50%; 
             width: 225px;
             height: 225px;
-            object-fit: cover;
+            object-fit: cover; 
             margin: 20px 0;
+            border: 25px solid #00366c;
+            transition: transform 0.3s ease;
         }
-        
+
+        .profile-pic:hover {
+            transform: scale(1.2);
+        }
 
         section {
             text-align: center;
@@ -88,36 +112,14 @@
             color: #989898; /* Default text color */
         }
 
-        /* Apply gradient color to the text below the image */
-        section ul li:nth-child(1) {
-            color: #c3c3c3; /* Lighter gray */
-        }
-
-        section ul li:nth-child(2), section ul li:nth-child(3) {
-            color: #9b9b9b; /* Darker gray */
-        }
-
-        section ul li:nth-child(4) {
-            color: #333; /* Black */
-        }
-
         footer {
             margin-top: 30px;
-        }
-        .profile-pic {
-            border-radius: 50%; 
-            width: 225px;
-            height: 225px;
-            object-fit: cover; 
-            margin: 20px 0;
-            border: 20px solid #00366c;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 15px;
-            
         }
 
         .social-icons a img {
@@ -127,43 +129,91 @@
             border-radius: 20%; 
             transition: transform 0.3s ease;
         }
+
         .social-logo:hover {
-            transform: scale(1.2); /* 放大效果 */
+            transform: scale(1.2);
         }
 
+        /* WeChat modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 80%;
+            max-height: 80%;
+            border: 5px solid white;
+            border-radius: 10px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>Sheeran Goth</h1>
+        <h1 style="font-weight: bold;">Sheeran Goth</h1>
         <p>hυshハシ｜he/him</p>
         <p>INFP-A | Born in 2002 | Based in Nanjing</p>
     </header>
-    <img class="profile-pic" src="profile.JPG" alt="Sheeran Goth's Photo">
+
+    <!-- Avatar linked to another page -->
+    <a class="profile-link" href="https://your-new-page.com" target="_blank">
+        <img class="profile-pic" src="profile.JPG" alt="Sheeran Goth's Photo">
+    </a>
+
     <section>
         <ul>
-            <li>26' 南京航空航天大学(NUAA)</li>
-            <li>Information Management and Information Systems (Junior)</li>
-            <li>IELTS: 7.5 | CET-6: 651 | 中文OK | 日本語-N3</li>
-            <li>Singer & Photographer</li>
+            <li style="color: #7f8894;">26' 南京航空航天大学(NUAA)</li>
+            <li style="color: #414141;">Information Management and Information Systems (Junior)</li>
+            <li style="color: #414141;font-weight: bold;">IELTS: 7.5 | CET-6: 651 | 中文OK | 日本語-N3</li>
+            <li style="color: #212121;font-weight: bold;font-size: 1.2rem;">Singer & Photographer</li>
         </ul>
     </section>
+
     <footer>
         <div class="social-icons">
             <a href="https://x.com/comabutter">
-                <img class="social-logo" src="xx.png" alt="Twitter">
+                <img class="social-logo" src="xxx.png" alt="Twitter">
             </a>
             <a href="https://instagram.com/comadairy">
-                <img class="social-logo" src="ins.png" alt="Instagram">
+                <img class="social-logo" src="insta.png" alt="Instagram">
             </a>
             <a href="https://github.com/sheeranrocks">
-                <img class="social-logo" src="github.png" alt="GitHub">
+                <img class="social-logo" src="git.png" alt="GitHub">
             </a>
-            <a href="https://weixin.qq.com/r/yourqrcode">
-                <img class="social-logo" src="wechat.png" alt="WeChat">
+            <!-- WeChat Button -->
+            <a href="javascript:void(0);" onclick="openModal()">
+                <img class="social-logo" src="wx.png" alt="WeChat">
             </a>
         </div>
     </footer>
+
+    <!-- Modal for WeChat QR Code -->
+    <div class="modal" id="wechatModal">
+        <img src="qrcode.jpg" alt="WeChat QR Code">
+    </div>
+
+    <script>
+        // Open modal
+        function openModal() {
+            document.getElementById('wechatModal').classList.add('active');
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('wechatModal').addEventListener('click', function() {
+            this.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
